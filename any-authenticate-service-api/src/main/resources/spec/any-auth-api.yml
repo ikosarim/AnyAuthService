@@ -1,0 +1,116 @@
+openapi: 3.0.1
+info:
+  title: Any authenticate service API
+  description: Any authenticate service API
+  version: 1.0.0
+servers:
+  - url: 'https://localhost:8080'
+
+tags:
+  - name: GetToken
+    description: operation about getting token
+
+paths:
+  /api/v1/send_phone:
+    post:
+      summary: Send number of phone to get code.
+      operationId: sendPhone
+      tags:
+        - GetToken
+      requestBody:
+        required: true
+        description: Request for sending number of phone to get code
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhoneNumber'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SendingResult'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/send_code:
+    post:
+      tags:
+        - GetToken
+      operationId: sendCode
+      summary: Send code to get JWT
+      requestBody:
+        required: true
+        description: Request to send code to get JWT
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SmsCode"
+      responses:
+        '200':
+          description: OK
+          content:
+            applcation/json:
+              schema:
+                $ref: '#/components/schemas/SendingResult'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+
+  schemas:
+    PhoneNumber:
+      type: object
+      description: Номер телефона
+      required:
+        - phone
+      properties:
+        phone:
+          type: string
+          description: номер телефона
+
+    SmsCode:
+      type: object
+      description: код из смс
+      required:
+        - code
+      properties:
+        code:
+          type: string
+          description: код из смс
+
+    SendingResult:
+      type: object
+      description: результат отправки
+      required:
+        - result
+        - message
+      properties:
+        result:
+          type: boolean
+          default: false
+        message:
+          type: string
+
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          description: Код ошибки
+          type: integer
+          format: int32
+        message:
+          description: Описание ошибки
+          type: string
