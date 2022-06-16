@@ -11,5 +11,34 @@
 
     <artifactId>any-authenticate-service-db</artifactId>
 
+    <properties>
+        <liquibase.propertyFile>liquibase.properties</liquibase.propertyFile>
+        <liquibase.changeLogFile>db/changelog/database_any_changelog.xml</liquibase.changeLogFile>
+    </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <configuration>
+                    <propertyFile>${liquibase.propertyFile}</propertyFile>
+                    <changeLogFile>${liquibase.changeLogFile}</changeLogFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

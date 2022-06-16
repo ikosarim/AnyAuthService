@@ -19,7 +19,7 @@
         </dependency>
         <dependency>
             <groupId>ru.any.auth</groupId>
-            <artifactId>any-authenticate-service-model</artifactId>
+            <artifactId>any-authenticate-service-db</artifactId>
         </dependency>
 
         <dependency>
@@ -29,6 +29,10 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>

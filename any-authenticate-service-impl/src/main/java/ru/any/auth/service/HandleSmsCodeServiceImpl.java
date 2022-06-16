@@ -3,10 +3,10 @@ package ru.any.auth.service;
 import org.apache.commons.lang3.RandomUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.any.auth.SecretCode;
 import ru.any.auth.dto.PhoneNumberDto;
 import ru.any.auth.dto.SendingResultDto;
 import ru.any.auth.dto.SmsCodeDto;
+import ru.any.auth.model.SecretCode;
 import ru.any.auth.repository.SecretCodeRepository;
 
 import java.time.LocalDateTime;

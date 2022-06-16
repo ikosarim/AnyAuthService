@@ -1,4 +1,4 @@
-package ru.any.auth;
+package ru.any.auth.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
