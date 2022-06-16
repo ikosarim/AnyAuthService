@@ -6,3 +6,14 @@ logging:
 spring:
   mvc:
     log-request-details: true
+
+sms:
+  center:
+    url: https://smsc.ru/sys/send.php
+    login: Rocky-po
+    psw: Pass_000_worD
+
+jwt:
+  secret:
+    access: supermegasecret
+    refresh: supermegarefreshsecret

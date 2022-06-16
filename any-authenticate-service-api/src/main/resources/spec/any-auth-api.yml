@@ -9,6 +9,8 @@ servers:
 tags:
   - name: GetToken
     description: operation about getting token
+  - name: RefreshToken
+    description: operations for refresh tokens
 
 paths:
   /api/v1/send_phone:
@@ -57,7 +59,61 @@ paths:
           content:
             applcation/json:
               schema:
-                $ref: '#/components/schemas/SendingResult'
+                $ref: '#/components/schemas/JwtResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/refresh_access_token:
+    post:
+      tags:
+        - RefreshToken
+      operationId: refreshAccessToken
+      summary: request for refresh access token
+      requestBody:
+        required: true
+        description: request body with refresh token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tokens'
+      responses:
+        '200':
+          description: OK
+          content:
+            applcation/json:
+              schema:
+                $ref: '#/components/schemas/JwtResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /api/v1/refresh_refresh_token:
+    post:
+      tags:
+        - RefreshToken
+      operationId: refreshRefreshToken
+      summary: request for refresh refresh token
+      requestBody:
+        required: true
+        description: request body with refresh token
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Tokens'
+      responses:
+        '200':
+          description: OK
+          content:
+            applcation/json:
+              schema:
+                $ref: '#/components/schemas/JwtResponse'
         default:
           description: unexpected error
           content:
@@ -83,10 +139,14 @@ components:
       description: код из смс
       required:
         - code
+        - phone
       properties:
         code:
           type: string
           description: код из смс
+        phone:
+          description: Номер телефона
+          type: string
 
     SendingResult:
       type: object
@@ -113,4 +173,31 @@ components:
           format: int32
         message:
           description: Описание ошибки
+          type: string
+
+    JwtResponse:
+      type: object
+      properties:
+        type:
+          description: тип ответа
+          type: string
+          default: Bearer
+        accessToken:
+          description: токен доступа
+          type: string
+        refreshToken:
+          description: токен обновления
+          type: string
+        errorMessage:
+          description: описание ошибки
+          type: string
+
+    Tokens:
+      type: object
+      properties:
+        accessToken:
+          description: токен доступа
+          type: string
+        refreshToken:
+          description: токен обновления
           type: string

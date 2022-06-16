@@ -12,6 +12,9 @@
     <modules>
         <module>any-authenticate-service-api</module>
         <module>any-authenticate-service-impl</module>
+        <module>any-authenticate-service-db</module>
+        <module>any-authenticate-service-model</module>
+        <module>any-authenticate-service-lib</module>
     </modules>
 
     <properties>
@@ -31,12 +34,18 @@
         <maven.openapi.generator.plugin>5.4.0</maven.openapi.generator.plugin>
 
         <spring.boot.starter.web.version>2.5.4</spring.boot.starter.web.version>
+        <spring.boot.starter.security.version>2.5.4</spring.boot.starter.security.version>
+        <spring.cloud.version>3.0.5</spring.cloud.version>
+        <spring.boot.starter.data.jpa.version>2.5.4</spring.boot.starter.data.jpa.version>
 
         <openapi.version>1.6.9</openapi.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <jaxb.api.version>2.4.0-b180830.0359</jaxb.api.version>
         <jakarta.validation.api>2.0.2</jakarta.validation.api>
         <org.openapitools.jackson.databind.nullable>0.2.2</org.openapitools.jackson.databind.nullable>
 
         <lombok.version>1.18.20</lombok.version>
+        <common.lang3.version>3.12.0</common.lang3.version>
     </properties>
 
     <dependencyManagement>
@@ -46,17 +55,47 @@
                 <artifactId>any-authenticate-service-api</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>ru.any.auth</groupId>
+                <artifactId>any-authenticate-service-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-web</artifactId>
                 <version>${spring.boot.starter.web.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+                <version>${spring.boot.starter.security.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-starter-openfeign</artifactId>
+                <version>${spring.cloud.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${spring.boot.starter.data.jpa.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${openapi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.api.version}</version>
             </dependency>
             <dependency>
                 <groupId>jakarta.validation</groupId>
@@ -68,6 +107,17 @@
                 <groupId>org.openapitools</groupId>
                 <artifactId>jackson-databind-nullable</artifactId>
                 <version>${org.openapitools.jackson.databind.nullable}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${common.lang3.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -89,11 +139,6 @@
                                 <version>${lombok.version}</version>
                             </path>
                         </annotationProcessorPaths>
-                        <compilerArgs>
-                            <arg>-Amapstruct.defaultComponentModel=spring</arg>
-                            <arg>-Amapstruct.suppressGeneratorTimestamp=true</arg>
-                            <arg>-Amapstruct.suppressGeneratorVersionInfoComment=true</arg>
-                        </compilerArgs>
                     </configuration>
                     <executions>
                         <execution>
