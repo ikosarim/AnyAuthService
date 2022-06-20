@@ -3,6 +3,9 @@ logging:
     org:
       springframework:
         web: DEBUG
+    ru:
+      any:
+        auth: DEBUG
 spring:
   mvc:
     log-request-details: true
@@ -24,13 +27,25 @@ spring:
     change-log: classpath:/db/changelog/database_any_auth_changelog.xml
     liquibase-schema: any_auth
 
-sms:
-  center:
-    url: https://smsc.ru/sys/send.php
-    login: Rocky-po
-    psw: Pass_000_worD
+feign:
+  hystrix:
+    enabled: true
+  client:
+    config:
+      default:
+        connectTimeout: 20000
+        readTimeout: 60000
+#        loggerLevel: BASIC
+
+red:
+  sms:
+    login: GCompany
+    api_key: RDdTABTskqyGQvjKjZMqapND
+    route: sms
+    from:
+    url: https://cp.redsms.ru/api/message
 
 jwt:
   secret:
-    access: supermegasecret
-    refresh: supermegarefreshsecret
+    access: zb0PgJPfMku7GlESjSWt
+    refresh: pKUlyyFEA7spPg1rRLkf

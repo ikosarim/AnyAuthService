@@ -28,9 +28,13 @@ public class GetTokenServiceImpl implements GetTokenService {
     @Override
     public Boolean checkIsNumberValidAndIsRussian(PhoneNumberDto phoneNumberDto) {
         final String phone = phoneNumberDto.getPhone();
-        final String clearPhone = phone.replaceAll("\\(", "")
+        String clearPhone = phone.replaceAll("\\+", "")
+                .replaceAll("\\(", "")
                 .replaceAll("\\)", "")
                 .replaceAll("-", "");
+        if (clearPhone.startsWith("8")) {
+            clearPhone = clearPhone.replaceFirst("8", "7");
+        }
         phoneNumberDto.setPhone(clearPhone);
         return clearPhone.startsWith("7") && clearPhone.length() == 11;
     }
