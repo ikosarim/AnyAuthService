@@ -40,9 +40,12 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             Function<String, String> newRefreshToken
     ) {
         final String refreshToken = tokensDto.getRefreshToken();
+        final String accessToken = tokensDto.getAccessToken();
+        if (!tokenGenerator.validateRefreshToken(refreshToken)) {
+            return new JwtResponseDto().errorMessage("Invalid tokens");
+        }
         final Claims refreshClaims = tokenGenerator.getRefreshClaims(refreshToken);
-        final String oldAccessToken = tokensDto.getAccessToken();
-        if (tokensAreInvalid(refreshToken, oldAccessToken, refreshClaims)) {
+        if (tokensAreInvalid(accessToken, refreshClaims)) {
             return new JwtResponseDto().errorMessage("Invalid tokens");
         }
         final String phone = refreshClaims.getSubject();
@@ -50,10 +53,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 .refreshToken(newRefreshToken.apply(phone));
     }
 
-    private boolean tokensAreInvalid(String refreshToken, String oldAccessToken, Claims refreshClaims) {
-        if (!tokenGenerator.validateRefreshToken(refreshToken)) {
-            return true;
-        }
+    private boolean tokensAreInvalid(String oldAccessToken, Claims refreshClaims) {
         final Claims accessClaims = tokenGenerator.getAccessClaims(oldAccessToken);
         if (!"refresh_token".equals(refreshClaims.get("token_type"))) {
             return true;

@@ -42,8 +42,9 @@ red:
     login: GCompany
     api_key: RDdTABTskqyGQvjKjZMqapND
     route: sms
-    from:
+    from: GCompany
     url: https://cp.redsms.ru/api/message
+    message_template: Код для авторизации в сервисе GCompany
 
 jwt:
   secret:

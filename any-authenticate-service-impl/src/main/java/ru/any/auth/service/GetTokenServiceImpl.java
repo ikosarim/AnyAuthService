@@ -7,6 +7,9 @@ import ru.any.auth.dto.PhoneNumberDto;
 import ru.any.auth.dto.SendingResultDto;
 import ru.any.auth.dto.SmsCodeDto;
 
+import java.util.Objects;
+import java.util.regex.Pattern;
+
 @Slf4j
 @Service
 public class GetTokenServiceImpl implements GetTokenService {
@@ -28,10 +31,16 @@ public class GetTokenServiceImpl implements GetTokenService {
     @Override
     public Boolean checkIsNumberValidAndIsRussian(PhoneNumberDto phoneNumberDto) {
         final String phone = phoneNumberDto.getPhone();
+        if (Objects.isNull(phone)) {
+            return false;
+        }
         String clearPhone = phone.replaceAll("\\+", "")
                 .replaceAll("\\(", "")
                 .replaceAll("\\)", "")
                 .replaceAll("-", "");
+        if (!Pattern.compile("\\d+").matcher(clearPhone).matches()) {
+            return false;
+        }
         if (clearPhone.startsWith("8")) {
             clearPhone = clearPhone.replaceFirst("8", "7");
         }

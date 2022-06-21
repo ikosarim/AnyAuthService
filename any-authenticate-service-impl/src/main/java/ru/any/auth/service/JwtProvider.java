@@ -93,6 +93,6 @@ public class JwtProvider implements TokenGenerator {
     }
 
     private Claims getClaims(@NonNull String token, @NonNull String secret) {
-        return Jwts.parser().setSigningKey(secret).parseClaimsJwt(token).getBody();
+        return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
 }

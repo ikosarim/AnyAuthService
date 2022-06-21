@@ -23,6 +23,8 @@ public class RedSmsSmsSenderService implements SmsSenderService {
     private String redSmsRoute;
     @Value("${red.sms.from}")
     private String redSmsFrom;
+    @Value("${red.sms.message_template}")
+    private String redSmsMessageTemplate;
 
     private final RedSmsFeignClient redSmsFeignClient;
 
@@ -39,7 +41,7 @@ public class RedSmsSmsSenderService implements SmsSenderService {
         final RedSmsRequest redSmsRequest = RedSmsRequest.builder()
                 .route(redSmsRoute)
                 .from(redSmsFrom)
-                .text(code)
+                .text(redSmsMessageTemplate + ": " + code)
                 .to(phone)
                 .build();
         final Long ts = RandomUtils.nextLong(10000, 999999999);
