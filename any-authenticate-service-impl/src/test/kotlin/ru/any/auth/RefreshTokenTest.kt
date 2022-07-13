@@ -11,7 +11,6 @@ import ru.any.auth.dto.JwtResponseDto
 import ru.any.auth.dto.TokensDto
 import ru.any.auth.service.TokenGenerator
 import kotlin.test.assertEquals
-import kotlin.test.assertNotEquals
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
