@@ -1,0 +1,24 @@
+name: Build and publish artifacts to JFrog Packages
+
+on:
+  pull_request:
+    types: [opened, reopened]
+    branches: [master, develop]
+  repository_dispatch:
+    types: [ Successful build ]
+
+jobs:
+  Build_And_Run_Tests:
+    name: Check code by compile and run unit tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: compile and test
+        run: mvn -e -B test --settings anySettings.xml -Dspring.profiles.active=test
