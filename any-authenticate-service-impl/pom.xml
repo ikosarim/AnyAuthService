@@ -7,7 +7,7 @@
     <parent>
         <artifactId>any-authenticate-service</artifactId>
         <groupId>ru.any.auth</groupId>
-        <version>0.0.1</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>any-authenticate-service-impl</artifactId>
