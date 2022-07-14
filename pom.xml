@@ -6,7 +6,7 @@
 
     <groupId>ru.any.auth</groupId>
     <artifactId>any-authenticate-service</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -441,4 +441,14 @@
             </plugin>
         </plugins>
     </build>
+
+    <distributionManagement>
+        <repository>
+            <id>jfrog-central</id>
+            <name>Any Apache Maven Packages</name>
+            <url>
+                https://idevelopment.jfrog.io/artifactory/any-libs-snapshot/
+            </url>
+        </repository>
+    </distributionManagement>
 </project>
