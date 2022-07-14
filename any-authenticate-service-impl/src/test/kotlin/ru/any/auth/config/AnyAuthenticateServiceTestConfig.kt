@@ -21,6 +21,7 @@ open class AnyAuthenticateServiceTestConfig {
             .withDatabaseName("any_db")
             .withInitScript("database-init.sql")
             .withUrlParam("currentSchema", "any_auth")
+            .withExposedPorts(5432)
 
         @DynamicPropertySource
         fun registerPgProperties(registry: DynamicPropertyRegistry) {
