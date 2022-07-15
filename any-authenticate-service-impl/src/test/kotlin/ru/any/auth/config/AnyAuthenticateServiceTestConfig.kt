@@ -14,14 +14,16 @@ import org.testcontainers.junit.jupiter.Testcontainers
 open class AnyAuthenticateServiceTestConfig {
 
     companion object {
+
         @Container
         val container: MyPostgreSQLContainer = MyPostgreSQLContainer("postgres:12")
-            .withUsername("postgres")
-            .withPassword("postgres")
+            .withUsername("any_postgres")
+            .withPassword("any_postgres")
             .withDatabaseName("any_db")
             .withInitScript("database-init.sql")
             .withUrlParam("currentSchema", "any_auth")
 
+        @JvmStatic
         @DynamicPropertySource
         fun registerPgProperties(registry: DynamicPropertyRegistry) {
             registry.add("spring.datasource.url") { container.jdbcUrl }
