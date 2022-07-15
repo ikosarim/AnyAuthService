@@ -12,14 +12,6 @@ on:
           - info
           - warning
           - debug
-      tags:
-        description: 'Test scenario tags'
-        required: false
-        type: boolean
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
 
 jobs:
   log-the-inputs:
@@ -36,12 +28,8 @@ jobs:
       - name: Publish maven artifact
         env:
           LEVEL: ${{ inputs.logLevel }}
-          TAGS: ${{ inputs.tags }}
-          ENVIRONMENT: ${{ inputs.environment }}
         run: |
           echo "Log level: $LEVEL"
-          echo "Tags: $TAGS"
-          echo "Environment: $ENVIRONMENT"
           mvn -e -B deploy --settings anySettings.xml -Dmaven.test.skip=true
 
       - name: Set up QEMU 🏗️
@@ -62,4 +50,4 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:latest
+          tags: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:0.0.1
