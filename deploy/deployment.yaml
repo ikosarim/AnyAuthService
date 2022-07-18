@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: any-authenticate-service
+  labels:
+    app: any-authenticate-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: any-authenticate-service
+  template:
+    metadata:
+      labels:
+        app: any-authenticate-service
+    spec:
+      containers:
+        - name: any-authenticate-service
+          image: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:0.0.1
+          ports:
+            - containerPort: 10000
+              protocol: TCP
+              name: http
+          resources:
+            limits:
+              memory: 256Mi
+              cpu: 200m
+            requests:
+              memory: 128Mi
+              cpu: 50m
+      imagePullSecrets:
+        - name: regcred
