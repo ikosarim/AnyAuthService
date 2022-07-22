@@ -4,12 +4,12 @@
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <servers>
         <server>
-            <id>jfrog-central</id>
+            <id>jfrog-release</id>
             <username>igor.kosarim@yandex.ru</username>
             <password>AP4H8ceLsMJ2b5QaZPe3f7QWPwT</password>
         </server>
         <server>
-            <id>jfrog-snapshots</id>
+            <id>jfrog-snapshot</id>
             <username>igor.kosarim@yandex.ru</username>
             <password>AP4H8ceLsMJ2b5QaZPe3f7QWPwT</password>
         </server>

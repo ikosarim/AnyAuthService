@@ -444,11 +444,18 @@
 
     <distributionManagement>
         <repository>
-            <id>jfrog-central</id>
+            <id>jfrog-release</id>
             <name>Any Apache Maven Packages</name>
+            <url>
+                https://idevelopment.jfrog.io/artifactory/any-libs-release/
+            </url>
+        </repository>
+        <snapshotRepository>
+            <id>jfrog-snapshot</id>
+            <name>Any Apache Maven Snapshot Packages</name>
             <url>
                 https://idevelopment.jfrog.io/artifactory/any-libs-snapshot/
             </url>
-        </repository>
+        </snapshotRepository>
     </distributionManagement>
 </project>
