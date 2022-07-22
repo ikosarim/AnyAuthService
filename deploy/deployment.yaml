@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: any-authenticate-service
-          image: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:0.0.1
+          image: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:0.0.13-SNAPSHOT
           ports:
             - containerPort: 10000
               protocol: TCP
@@ -27,6 +27,6 @@ spec:
               cpu: 200m
             requests:
               memory: 128Mi
-              cpu: 50m
+              cpu: 100m
       imagePullSecrets:
         - name: regcred

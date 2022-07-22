@@ -1,14 +1,16 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: any-authenticate-service
-  annotations:
-    kubernetes.io/ingress.class: "nginx"
+  name: any-authenticate-service-ingress
 spec:
+#  ingressClassName: ingress-nginx
   rules:
-    - host: any-authenticate-service.ru
-      http:
+    - http:
         paths:
-          - backend:
-              serviceName: any-authenticate-service
-              servicePort: 80
+          - path: /any-authenticate-service
+            pathType: Prefix
+            backend:
+              service:
+                name: any-authenticate-service
+                port:
+                  number: 8080
