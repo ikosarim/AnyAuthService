@@ -37,6 +37,9 @@ feign:
         readTimeout: 60000
 #        loggerLevel: BASIC
 
+filter:
+  enabled: false
+
 red:
   sms:
     login: GCompany

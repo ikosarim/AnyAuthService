@@ -9,6 +9,8 @@ public interface TokenGenerator {
 
     String generateRefreshToken(@NonNull String phone);
 
+    Boolean validateAccessToken(@NonNull String token);
+
     Boolean validateRefreshToken(@NonNull String token);
 
     Claims getAccessClaims(@NonNull String token);

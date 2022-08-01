@@ -1,5 +1,6 @@
 package ru.any.auth.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
@@ -19,6 +20,9 @@ import ru.any.auth.filter.JwtFilter;
 @EnableConfigurationProperties(SecurityProperties.class)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Value("${filter.enabled:true}")
+    private boolean enableFilter;
+
     private final JwtFilter jwtFilter;
 
     public WebSecurityConfig(JwtFilter jwtFilter) {
@@ -34,7 +38,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .cors().and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .cors();
+        if (enableFilter) {
+            http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        }
     }
 }
