@@ -14,9 +14,10 @@ public class RestExceptionHandler {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorDto> handleRestException(Exception ex) {
         log.error(ex.getMessage(), ex);
+        final long code = Integer.valueOf(HttpStatus.BAD_REQUEST.value()).longValue();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(
-                        new ErrorDto().code(HttpStatus.BAD_REQUEST.value())
+                        new ErrorDto().code(code)
                                 .message(ex.getLocalizedMessage())
                 );
     }

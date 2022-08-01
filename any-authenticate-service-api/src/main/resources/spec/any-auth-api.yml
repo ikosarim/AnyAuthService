@@ -170,7 +170,7 @@ components:
         code:
           description: Код ошибки
           type: integer
-          format: int32
+          format: int64
         message:
           description: Описание ошибки
           type: string
