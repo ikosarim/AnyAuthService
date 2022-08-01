@@ -58,7 +58,7 @@ public class JwtProvider implements TokenGenerator {
                 .compact();
     }
 
-    public boolean validateAccessToken(@NonNull String token) {
+    public Boolean validateAccessToken(@NonNull String token) {
         return validateToken(token, jwtAccessSecret);
     }
 
