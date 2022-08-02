@@ -13,7 +13,7 @@
 
     <properties>
         <liquibase.propertyFile>liquibase.properties</liquibase.propertyFile>
-        <liquibase.changeLogFile>db/changelog/database_any_changelog.xml</liquibase.changeLogFile>
+        <liquibase.changeLogFile>db/changelog/database_any_auth_changelog.xml</liquibase.changeLogFile>
     </properties>
 
     <dependencies>
