@@ -3,12 +3,12 @@ kind: Ingress
 metadata:
   name: any-authenticate-service-ingress
 spec:
-#  ingressClassName: ingress-nginx
   rules:
-    - http:
+    - host: "any-authenticate-service.k8saas.timeweb.com"
+      http:
         paths:
-          - path: /any-authenticate-service
-            pathType: Prefix
+          - pathType: Prefix
+            path: "/any-authenticate-service"
             backend:
               service:
                 name: any-authenticate-service
