@@ -17,8 +17,8 @@ import kotlin.test.assertNull
 class RefreshTokenTest : AbstractIntegrationTest() {
 
     companion object {
-        const val BASE_ACCESS_URL = "/api/v1/refresh_access_token"
-        const val BASE_REFRESH_URL = "/api/v1/refresh_refresh_token"
+        const val BASE_ACCESS_URL = "/api/v1/auth/refresh_access_token"
+        const val BASE_REFRESH_URL = "/api/v1/auth/refresh_refresh_token"
     }
 
     @Autowired

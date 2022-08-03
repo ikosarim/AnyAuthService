@@ -21,7 +21,7 @@ import javax.validation.constraints.NotNull
 class CheckValidNumberTest : AbstractIntegrationTest() {
 
     companion object {
-        const val BASE_URL = "/api/v1/send_phone"
+        const val BASE_URL = "/api/v1/auth/send_phone"
     }
 
     @MockkBean
