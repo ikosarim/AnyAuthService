@@ -23,7 +23,7 @@ import kotlin.test.assertNull
 class CheckSecretCodeTest : AbstractIntegrationTest() {
 
     companion object {
-        const val BASE_URL = "/api/v1/send_code"
+        const val BASE_URL = "/api/v1/auth/send_code"
     }
 
     @MockkBean

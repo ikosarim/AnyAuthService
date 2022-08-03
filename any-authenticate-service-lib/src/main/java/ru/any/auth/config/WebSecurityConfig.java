@@ -1,10 +1,9 @@
 package ru.any.auth.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,16 +13,18 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ru.any.auth.filter.JwtFilter;
 
 @Configuration
-@ComponentScan("ru.any.auth")
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 @EnableConfigurationProperties(SecurityProperties.class)
+@EnableAspectJAutoProxy
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Value("${filter.enabled:true}")
-    private boolean enableFilter;
-
     private final JwtFilter jwtFilter;
+    private static final String[] ALLOW_PATTERNS = {
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/api/v1/auth/**"
+    };
 
     public WebSecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
@@ -35,12 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .anyRequest().permitAll()
+                .cors()
                 .and()
-                .cors();
-        if (enableFilter) {
-            http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        }
+                .authorizeHttpRequests(
+                        authz -> authz.antMatchers(ALLOW_PATTERNS).permitAll()
+                                .anyRequest().authenticated()
+                                .and()
+                                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                );
     }
 }

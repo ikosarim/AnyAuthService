@@ -33,14 +33,9 @@ public class JwtFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
-        getToken(request).map(
-                token -> {
-                    if (tokenGenerator.validateAccessToken(token)) {
-                        throw new IllegalArgumentException("Invalid token");
-                    }
-                    return tokenGenerator.getAccessClaims(token).getSubject();
-                }
-        ).map(phone -> buildPreAuthenticationToken(request, phone))
+        getToken(request)
+                .map(this::checkTokenAndGetSubject)
+                .map(phone -> buildPreAuthenticationToken(request, phone))
                 .ifPresent(authentication -> SecurityContextHolder.getContext().setAuthentication(authentication));
         try {
             filterChain.doFilter(request, response);
@@ -49,11 +44,20 @@ public class JwtFilter extends OncePerRequestFilter {
         }
     }
 
+    private String checkTokenAndGetSubject(String token) {
+        if (!tokenGenerator.validateAccessToken(token)) {
+            return null;
+        }
+        return tokenGenerator.getAccessClaims(token).getSubject();
+    }
+
     private JWTPreAuthenticationToken buildPreAuthenticationToken(HttpServletRequest request, String phone) {
-        return JWTPreAuthenticationToken.builder()
+        final JWTPreAuthenticationToken token = JWTPreAuthenticationToken.builder()
                 .principal(phone)
                 .details(new WebAuthenticationDetailsSource().buildDetails(request))
                 .build();
+        token.setAuthenticated(true);
+        return token;
     }
 
     private Optional<String> getToken(HttpServletRequest request) {
