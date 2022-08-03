@@ -35,8 +35,8 @@ public class JwtFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
         getToken(request).map(
                 token -> {
-                    if (tokenGenerator.validateAccessToken(token)) {
-                        throw new IllegalArgumentException("Invalid token");
+                    if (!tokenGenerator.validateAccessToken(token)) {
+                        return null;
                     }
                     return tokenGenerator.getAccessClaims(token).getSubject();
                 }

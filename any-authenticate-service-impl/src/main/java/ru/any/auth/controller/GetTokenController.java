@@ -1,6 +1,7 @@
 package ru.any.auth.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import ru.any.auth.dto.JwtResponseDto;
 import ru.any.auth.dto.PhoneNumberDto;
@@ -18,12 +19,14 @@ public class GetTokenController implements GetTokenApi {
     }
 
     @Override
+//    @PreAuthorize("isAnonymous()")
     public ResponseEntity<JwtResponseDto> sendCode(SmsCodeDto smsCodeDto) {
         final JwtResponseDto jwtResponseDto = getTokenService.checkSecretCode(smsCodeDto);
         return ResponseEntity.ok(jwtResponseDto);
     }
 
     @Override
+    @PreAuthorize("isAnonymous()")
     public ResponseEntity<SendingResultDto> sendPhone(PhoneNumberDto phoneNumberDto) {
         if (!getTokenService.checkIsNumberValidAndIsRussian(phoneNumberDto)) {
             final SendingResultDto sendingResultDto = new SendingResultDto().result(false)

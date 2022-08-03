@@ -1,10 +1,9 @@
 package ru.any.auth.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,14 +13,11 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ru.any.auth.filter.JwtFilter;
 
 @Configuration
-@ComponentScan("ru.any.auth")
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)
 @EnableConfigurationProperties(SecurityProperties.class)
+@EnableAspectJAutoProxy
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Value("${filter.enabled:true}")
-    private boolean enableFilter;
 
     private final JwtFilter jwtFilter;
 
@@ -38,9 +34,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest().permitAll()
                 .and()
-                .cors();
-        if (enableFilter) {
-            http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
-        }
+                .cors()
+                .and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }

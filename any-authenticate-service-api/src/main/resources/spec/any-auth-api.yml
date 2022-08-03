@@ -19,6 +19,8 @@ paths:
       operationId: sendPhone
       tags:
         - GetToken
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         description: Request for sending number of phone to get code
@@ -46,6 +48,8 @@ paths:
         - GetToken
       operationId: sendCode
       summary: Send code to get JWT
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         description: Request to send code to get JWT
@@ -57,7 +61,7 @@ paths:
         '200':
           description: OK
           content:
-            applcation/json:
+            'applcation/json':
               schema:
                 $ref: '#/components/schemas/JwtResponse'
         default:
@@ -73,6 +77,8 @@ paths:
         - RefreshToken
       operationId: refreshAccessToken
       summary: request for refresh access token
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         description: request body with refresh token
@@ -100,6 +106,8 @@ paths:
         - RefreshToken
       operationId: refreshRefreshToken
       summary: request for refresh refresh token
+      security:
+        - bearerAuth: []
       requestBody:
         required: true
         description: request body with refresh token
@@ -122,6 +130,11 @@ paths:
                 $ref: "#/components/schemas/Error"
 
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
 
   schemas:
     PhoneNumber:

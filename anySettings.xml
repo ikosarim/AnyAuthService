@@ -2,14 +2,27 @@
 <settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.1.0 http://maven.apache.org/xsd/settings-1.1.0.xsd"
           xmlns="http://maven.apache.org/SETTINGS/1.1.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <activeProfiles>
+        <activeProfile>any-profile</activeProfile>
+    </activeProfiles>
     <servers>
         <server>
-            <id>jfrog-release</id>
+            <id>github</id>
+            <username>ikosarim</username>
+            <password>deeea6e390c4bc966dd41bb02df439da158cdb86</password>
+        </server>
+        <server>
+            <id>jfrog-central</id>
             <username>igor.kosarim@yandex.ru</username>
             <password>AP4H8ceLsMJ2b5QaZPe3f7QWPwT</password>
         </server>
         <server>
-            <id>jfrog-snapshot</id>
+            <id>jfrog-releases</id>
+            <username>igor.kosarim@yandex.ru</username>
+            <password>AP4H8ceLsMJ2b5QaZPe3f7QWPwT</password>
+        </server>
+        <server>
+            <id>jfrog-snapshots</id>
             <username>igor.kosarim@yandex.ru</username>
             <password>AP4H8ceLsMJ2b5QaZPe3f7QWPwT</password>
         </server>
@@ -30,15 +43,15 @@
                 </repository>
                 <repository>
                     <snapshots>
-                        <enabled>false</enabled>
+                        <enabled>true</enabled>
                     </snapshots>
-                    <id>central</id>
+                    <id>jfrog-releases</id>
                     <name>any-libs-release</name>
                     <url>https://idevelopment.jfrog.io/artifactory/any-libs-release</url>
                 </repository>
                 <repository>
                     <snapshots/>
-                    <id>snapshots</id>
+                    <id>jfrog-snapshots</id>
                     <name>any-libs-snapshot</name>
                     <url>https://idevelopment.jfrog.io/artifactory/any-libs-snapshot</url>
                 </repository>
@@ -48,13 +61,13 @@
                     <snapshots>
                         <enabled>false</enabled>
                     </snapshots>
-                    <id>central</id>
+                    <id>jfrog-releases</id>
                     <name>any-libs-release</name>
                     <url>https://idevelopment.jfrog.io/artifactory/any-libs-release</url>
                 </pluginRepository>
                 <pluginRepository>
                     <snapshots/>
-                    <id>snapshots</id>
+                    <id>jfrog-snapshots</id>
                     <name>any-libs-snapshot</name>
                     <url>https://idevelopment.jfrog.io/artifactory/any-libs-snapshot</url>
                 </pluginRepository>

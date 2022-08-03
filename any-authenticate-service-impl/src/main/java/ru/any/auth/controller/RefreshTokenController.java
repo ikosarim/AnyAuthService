@@ -1,6 +1,7 @@
 package ru.any.auth.controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 import ru.any.auth.dto.JwtResponseDto;
 import ru.any.auth.dto.TokensDto;
@@ -16,12 +17,14 @@ public class RefreshTokenController implements RefreshTokenApi {
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<JwtResponseDto> refreshAccessToken(TokensDto tokensDto) {
         JwtResponseDto jwtResponseDto = refreshTokenService.refreshAccessToken(tokensDto);
         return ResponseEntity.ok(jwtResponseDto);
     }
 
     @Override
+    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<JwtResponseDto> refreshRefreshToken(TokensDto tokensDto) {
         JwtResponseDto jwtResponseDto = refreshTokenService.refreshRefreshToken(tokensDto);
         return ResponseEntity.ok(jwtResponseDto);

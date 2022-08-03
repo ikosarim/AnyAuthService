@@ -30,7 +30,7 @@
         <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.surefire.plugin.version>3.0.0-M5</maven.surefire.plugin.version>
         <jacoco.maven.plugin.version>0.8.7</jacoco.maven.plugin.version>
-        <maven.openapi.generator.plugin>5.4.0</maven.openapi.generator.plugin>
+        <maven.openapi.generator.plugin>6.0.1</maven.openapi.generator.plugin>
         <kotlin.version>1.5.32</kotlin.version>
 
         <spring.boot.starter.web.version>2.5.4</spring.boot.starter.web.version>
@@ -449,14 +449,14 @@
 
     <distributionManagement>
         <repository>
-            <id>jfrog-release</id>
+            <id>jfrog-releases</id>
             <name>Any Apache Maven Packages</name>
             <url>
                 https://idevelopment.jfrog.io/artifactory/any-libs-release/
             </url>
         </repository>
         <snapshotRepository>
-            <id>jfrog-snapshot</id>
+            <id>jfrog-snapshots</id>
             <name>Any Apache Maven Snapshot Packages</name>
             <url>
                 https://idevelopment.jfrog.io/artifactory/any-libs-snapshot/
