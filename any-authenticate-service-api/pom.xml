@@ -26,6 +26,12 @@
             <groupId>org.openapitools</groupId>
             <artifactId>jackson-databind-nullable</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -43,6 +49,10 @@
                             <inputSpec>${project.basedir}/src/main/resources/spec/any-auth-api.yml</inputSpec>
                             <apiPackage>ru.any.auth.controller</apiPackage>
                             <modelPackage>ru.any.auth.dto</modelPackage>
+                            <configOptions>
+                                <!--suppress UnresolvedMavenProperty -->
+                                <additionalModelTypeAnnotations>@lombok.Builder @lombok.NoArgsConstructor @lombok.AllArgsConstructor</additionalModelTypeAnnotations>
+                            </configOptions>
                         </configuration>
                     </execution>
                 </executions>

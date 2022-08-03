@@ -20,6 +20,11 @@ import ru.any.auth.filter.JwtFilter;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final JwtFilter jwtFilter;
+    private static final String[] ALLOW_PATTERNS = {
+            "/swagger-ui/**",
+            "/v3/api-docs/**",
+            "/api/v1/auth/**"
+    };
 
     public WebSecurityConfig(JwtFilter jwtFilter) {
         this.jwtFilter = jwtFilter;
@@ -31,11 +36,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                .authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
                 .cors()
                 .and()
-                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+                .authorizeHttpRequests(
+                        authz -> authz.antMatchers(ALLOW_PATTERNS).permitAll()
+                                .anyRequest().authenticated()
+                                .and()
+                                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                );
     }
 }

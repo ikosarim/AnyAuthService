@@ -13,7 +13,7 @@ tags:
     description: operations for refresh tokens
 
 paths:
-  /api/v1/send_phone:
+  /api/v1/auth/send_phone:
     post:
       summary: Send number of phone to get code.
       operationId: sendPhone
@@ -42,7 +42,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /api/v1/send_code:
+  /api/v1/auth/send_code:
     post:
       tags:
         - GetToken
@@ -61,7 +61,7 @@ paths:
         '200':
           description: OK
           content:
-            'applcation/json':
+            application/json:
               schema:
                 $ref: '#/components/schemas/JwtResponse'
         default:
@@ -71,7 +71,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /api/v1/refresh_access_token:
+  /api/v1/auth/refresh_access_token:
     post:
       tags:
         - RefreshToken
@@ -90,7 +90,7 @@ paths:
         '200':
           description: OK
           content:
-            applcation/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/JwtResponse'
         default:
@@ -100,7 +100,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Error"
 
-  /api/v1/refresh_refresh_token:
+  /api/v1/auth/refresh_refresh_token:
     post:
       tags:
         - RefreshToken
@@ -119,7 +119,7 @@ paths:
         '200':
           description: OK
           content:
-            applcation/json:
+            application/json:
               schema:
                 $ref: '#/components/schemas/JwtResponse'
         default:

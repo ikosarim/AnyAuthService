@@ -17,14 +17,12 @@ public class RefreshTokenController implements RefreshTokenApi {
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<JwtResponseDto> refreshAccessToken(TokensDto tokensDto) {
         JwtResponseDto jwtResponseDto = refreshTokenService.refreshAccessToken(tokensDto);
         return ResponseEntity.ok(jwtResponseDto);
     }
 
     @Override
-    @PreAuthorize("isAuthenticated()")
     public ResponseEntity<JwtResponseDto> refreshRefreshToken(TokensDto tokensDto) {
         JwtResponseDto jwtResponseDto = refreshTokenService.refreshRefreshToken(tokensDto);
         return ResponseEntity.ok(jwtResponseDto);
