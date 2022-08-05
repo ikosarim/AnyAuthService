@@ -10,7 +10,7 @@ spec:
       http:
         paths:
           - pathType: Prefix
-            path: "/any-authenticate-service"
+            path: "/"
             backend:
               service:
                 name: any-authenticate-service
