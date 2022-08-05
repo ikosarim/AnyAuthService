@@ -8,7 +8,7 @@ spec:
   ports:
     - port: 8080
       protocol: TCP
-      targetPort: 10000
+      targetPort: 8080
   selector:
     app: any-authenticate-service
   type: ClusterIP

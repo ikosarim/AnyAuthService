@@ -16,9 +16,9 @@ spec:
     spec:
       containers:
         - name: any-authenticate-service
-          image: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:0.0.17-SNAPSHOT
+          image: idevelopment.jfrog.io/any-docker-image/any-authenticate-service:0.0.18-SNAPSHOT
           ports:
-            - containerPort: 10000
+            - containerPort: 8080
               protocol: TCP
               name: http
           resources:
