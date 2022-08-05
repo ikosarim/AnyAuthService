@@ -27,9 +27,9 @@ jobs:
 
       - name: Set env variables
         run: |
-          echo "BUILD_MAJOR_VERSION=${{ secrets.MAJOR_VERSION }}" >> $GITHUB_ENV
-          echo "BUILD_MINOR_VERSION=${{ secrets.MINOR_VERSION }}" >> $GITHUB_ENV
-          echo "NEW_PATCH_VERSION=$((${{ secrets.PATCH_VERSION }}+1))" >> $GITHUB_ENV
+          echo "BUILD_MAJOR_VERSION=${{ secrets.AUTH_MAJOR_VERSION }}" >> $GITHUB_ENV
+          echo "BUILD_MINOR_VERSION=${{ secrets.AUTH_MINOR_VERSION }}" >> $GITHUB_ENV
+          echo "NEW_PATCH_VERSION=$((${{ secrets.AUTH_PATCH_VERSION }}+1))" >> $GITHUB_ENV
 
       - name: Show build versions
         run: |

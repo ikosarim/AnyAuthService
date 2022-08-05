@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-    private static final String AUTHORIZATION_HEADER = "Authorization";
+    private static final String AUTHORIZATION_HEADER = "Access";
     private static final Pattern BEARER_PATTERN = Pattern.compile("^Bearer (.+?)$");
 
     private final TokenGenerator tokenGenerator;
