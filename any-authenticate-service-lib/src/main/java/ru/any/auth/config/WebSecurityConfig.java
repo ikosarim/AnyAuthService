@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,6 +24,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] ALLOW_PATTERNS = {
             "/swagger-ui/**",
             "/v3/api-docs/**",
+            "/v3/schemas/**",
+            "/swagger-resources/**",
+            "/webjars/**",
             "/api/v1/auth/**"
     };
 

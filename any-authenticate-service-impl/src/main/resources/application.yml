@@ -1,11 +1,21 @@
 logging:
   level:
+    web: DEBUG
     org:
       springframework:
         web: DEBUG
     ru:
       any:
         auth: DEBUG
+
+springdoc:
+  swagger-ui:
+    configUrl: '/v3/api-docs'
+    display-request-duration: true
+    groups-order: DESC
+    operationsSorter: method
+    disable-swagger-default-url: true
+
 spring:
   mvc:
     log-request-details: true
@@ -50,3 +60,7 @@ jwt:
   secret:
     access: zb0PgJPfMku7GlESjSWt
     refresh: pKUlyyFEA7spPg1rRLkf
+
+swagger:
+  path:
+    prefix: "/k8s/clusters/c-tbsx7/api/v1/namespaces/default/services/any-authenticate-service/proxy"
