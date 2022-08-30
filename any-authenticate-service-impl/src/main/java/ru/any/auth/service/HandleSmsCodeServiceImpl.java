@@ -25,7 +25,7 @@ public class HandleSmsCodeServiceImpl implements HandleSmsCodeService {
     @Override
     public String generateSmsCode(PhoneNumberDto phoneNumberDto) {
         final SecretCode secretCode = secretCodeRepository.findByPhone(phoneNumberDto.getPhone())
-                .map(secret -> secret.setExpireDateTime(LocalDateTime.now().plusMinutes(1L))
+                .map(secret -> secret.setExpireDateTime(LocalDateTime.now().plusMinutes(2L))
                         .setAttemptsNumber(0L)
                         .setDelayUntil(null)
                         .setSecret(String.valueOf(RandomUtils.nextLong(100000, 999999)))
