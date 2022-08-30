@@ -27,7 +27,6 @@ public class HandleSmsCodeServiceImpl implements HandleSmsCodeService {
         final SecretCode secretCode = secretCodeRepository.findByPhone(phoneNumberDto.getPhone())
                 .map(secret -> secret.setExpireDateTime(LocalDateTime.now().plusMinutes(1L))
                         .setAttemptsNumber(0L)
-                        .setDelayUntil(null)
                         .setSecret(String.valueOf(RandomUtils.nextLong(100000, 999999)))
                 ).orElseGet(() -> secretCodeRepository.save(createNewSecretCode(phoneNumberDto)));
         return secretCode.getSecret();
@@ -37,9 +36,8 @@ public class HandleSmsCodeServiceImpl implements HandleSmsCodeService {
         return SecretCode.builder()
                 .phone(phoneNumberDto.getPhone())
                 .secret(String.valueOf(RandomUtils.nextLong(100000, 999999)))
-                .expireDateTime(LocalDateTime.now().plusMinutes(1L))
+                .expireDateTime(LocalDateTime.now().plusMinutes(2L))
                 .attemptsNumber(0L)
-                .delayUntil(null)
                 .build();
     }
 
