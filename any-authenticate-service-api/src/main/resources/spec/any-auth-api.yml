@@ -168,10 +168,10 @@ components:
         - result
         - message
       properties:
-        result:
+        isSuccessful:
           type: boolean
           default: false
-        message:
+        errorMessage:
           type: string
 
     Error:
@@ -191,6 +191,9 @@ components:
     JwtResponse:
       type: object
       properties:
+        isSuccessful:
+          type: boolean
+          default: false
         type:
           description: тип ответа
           type: string

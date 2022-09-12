@@ -26,8 +26,8 @@ public class GetTokenController implements GetTokenApi {
     @Override
     public ResponseEntity<SendingResultDto> sendPhone(PhoneNumberDto phoneNumberDto) {
         if (!getTokenService.checkIsNumberValidAndIsRussian(phoneNumberDto)) {
-            final SendingResultDto sendingResultDto = new SendingResultDto().result(false)
-                    .message("Неправильный формат номера телефона");
+            final SendingResultDto sendingResultDto = new SendingResultDto().isSuccessful(false)
+                    .errorMessage("Неправильный формат номера телефона");
             return ResponseEntity.ok(sendingResultDto);
         }
         final SendingResultDto sendingResultDto = getTokenService.sendSmsWithCode(phoneNumberDto);
