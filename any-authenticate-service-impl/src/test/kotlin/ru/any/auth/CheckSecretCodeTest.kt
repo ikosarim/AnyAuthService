@@ -52,7 +52,6 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
             secret,
             LocalDateTime.now().plusMinutes(5),
             0,
-            null,
             false
         )
         assertNull(jwtResponseDto.accessToken)
@@ -71,7 +70,6 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
             secret,
             LocalDateTime.now().minusMinutes(1),
             0,
-            null,
             true
         )
         assertNull(jwtResponseDto.accessToken)
@@ -81,7 +79,7 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
     }
 
     @Test
-    fun returnErrorIfAttemptsNumberIsGreaterThree() {
+    fun returnErrorIfAttemptsNumberIsGreaterMax() {
         val phone = "79456127799"
         val secret = "789213"
         val jwtResponseDto = buildSecretCodeAndSendRequest(
@@ -89,8 +87,7 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
             secret,
             secret,
             LocalDateTime.now().plusHours(1),
-            4,
-            null,
+            16,
             true
         )
         assertNull(jwtResponseDto.accessToken)
@@ -98,28 +95,6 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
         assertNotNull(jwtResponseDto.errorMessage)
         assertEquals(
             "Было сделано максимальное количество попыток ввода кода. Запросите новый.",
-            jwtResponseDto.errorMessage
-        )
-    }
-
-    @Test
-    fun returnErrorIfSendCodeExpiredImmediatelyAfterWrongEntry() {
-        val phone = "79456127799"
-        val secret = "789213"
-        val jwtResponseDto = buildSecretCodeAndSendRequest(
-            phone,
-            secret,
-            secret,
-            LocalDateTime.now().plusHours(1),
-            1,
-            LocalDateTime.now().plusMinutes(3),
-            true
-        )
-        assertNull(jwtResponseDto.accessToken)
-        assertNull(jwtResponseDto.refreshToken)
-        assertNotNull(jwtResponseDto.errorMessage)
-        assertEquals(
-            "5 секунд после нудачной попытки ввода еще не прошли",
             jwtResponseDto.errorMessage
         )
     }
@@ -134,7 +109,6 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
             "123456",
             LocalDateTime.now().plusHours(1),
             0,
-            null,
             true
         )
         assertNull(jwtResponseDto.accessToken)
@@ -146,7 +120,6 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
         )
         val secretCode = secretCodeRepository.findByPhone(phone).orElseThrow()
         assertEquals(1, secretCode.attemptsNumber)
-        assertNotNull(secretCode.delayUntil)
     }
 
     @Test
@@ -159,7 +132,6 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
             secret,
             LocalDateTime.now().plusHours(1),
             0,
-            null,
             true
         )
         assertNotNull(jwtResponseDto.accessToken)
@@ -173,14 +145,12 @@ class CheckSecretCodeTest : AbstractIntegrationTest() {
         code: String?,
         expireDateTime: LocalDateTime,
         attemptsNumber: Long,
-        delayUntil: LocalDateTime?,
         isPresent: Boolean
     ): JwtResponseDto {
         val secretCode = SecretCode.builder()
             .phone(phone)
             .secret(secret)
             .attemptsNumber(attemptsNumber)
-            .delayUntil(delayUntil)
             .expireDateTime(expireDateTime)
             .build()
         if (isPresent) {

@@ -46,20 +46,20 @@ public class HandleSmsCodeServiceImpl implements HandleSmsCodeService {
         final String phone = smsCodeDto.getPhone();
         final Optional<SecretCode> secretCodeOptional = secretCodeRepository.findByPhone(phone);
         if (secretCodeOptional.isEmpty()) {
-            return new SendingResultDto().result(false).message("Нет кода для этого телефона. Запросите новый.");
+            return new SendingResultDto().isSuccessful(false).errorMessage("Нет кода для этого телефона. Запросите новый.");
         }
         final SecretCode secretCode = secretCodeOptional.get();
         if (LocalDateTime.now().isAfter(secretCode.getExpireDateTime())) {
-            return new SendingResultDto().result(false).message("Время действия кода истекло. Запросите новый.");
+            return new SendingResultDto().isSuccessful(false).errorMessage("Время действия кода истекло. Запросите новый.");
         }
         final Long attemptsNumber = secretCode.getAttemptsNumber();
         if (attemptsNumber > 15) {
-            return new SendingResultDto().result(false).message("Было сделано максимальное количество попыток ввода кода. Запросите новый.");
+            return new SendingResultDto().isSuccessful(false).errorMessage("Было сделано максимальное количество попыток ввода кода. Запросите новый.");
         }
         if (!secretCode.getSecret().equals(smsCodeDto.getCode())) {
             secretCode.setAttemptsNumber(attemptsNumber + 1);
-            return new SendingResultDto().result(false).message("Введен неправильный код");
+            return new SendingResultDto().isSuccessful(false).errorMessage("Введен неправильный код");
         }
-        return new SendingResultDto().result(true).message("Аутентификация прошла успешно");
+        return new SendingResultDto().isSuccessful(true);
     }
 }

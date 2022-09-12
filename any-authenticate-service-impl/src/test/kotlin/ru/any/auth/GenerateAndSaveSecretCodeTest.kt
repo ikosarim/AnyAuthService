@@ -38,7 +38,7 @@ class GenerateAndSaveSecretCodeTest : AbstractIntegrationTest() {
     @BeforeEach
     fun beforeEachTest() {
         secretCodeRepository.deleteAll()
-        every { smsSenderService.sendCodeInSms(allAny(), allAny()) } returns SendingResultDto().result(true)
+        every { smsSenderService.sendCodeInSms(allAny(), allAny()) } returns SendingResultDto().isSuccessful(true)
     }
 
     @Test
@@ -62,7 +62,6 @@ class GenerateAndSaveSecretCodeTest : AbstractIntegrationTest() {
         assertEquals(phoneNumber, secretCode.phone)
         assertNotNull(secretCode.secret)
         assertEquals(0, secretCode.attemptsNumber)
-        assertNull(secretCode.delayUntil)
         assertNotNull(secretCode.expireDateTime)
     }
 
@@ -72,7 +71,6 @@ class GenerateAndSaveSecretCodeTest : AbstractIntegrationTest() {
             .phone("79456127799")
             .secret("789213")
             .attemptsNumber(0)
-            .delayUntil(null)
             .expireDateTime(LocalDateTime.now().plusMinutes(5))
             .build()
         secretCodeRepository.save(oldSecretCode)
@@ -91,7 +89,6 @@ class GenerateAndSaveSecretCodeTest : AbstractIntegrationTest() {
             .phone("79116547813")
             .secret(oldSecret)
             .attemptsNumber(2)
-            .delayUntil(LocalDateTime.now().plusSeconds(40))
             .expireDateTime(oldExpireDateTime)
             .build()
         secretCodeRepository.save(oldSecretCode)
@@ -105,7 +102,6 @@ class GenerateAndSaveSecretCodeTest : AbstractIntegrationTest() {
         assertEquals(phoneNumber, secretCode.phone)
         assertNotEquals(oldSecret, secretCode.secret)
         assertEquals(0, secretCode.attemptsNumber)
-        assertNull(secretCode.delayUntil)
         assertNotEquals(oldExpireDateTime, secretCode.expireDateTime)
     }
 

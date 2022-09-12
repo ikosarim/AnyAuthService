@@ -35,7 +35,7 @@ class CheckValidNumberTest : AbstractIntegrationTest() {
     @BeforeEach
     fun setMockBehavior() {
         every { handleSmsCodeService.generateSmsCode(allAny()) } returns ""
-        every { smsSenderService.sendCodeInSms(allAny(), allAny()) } returns SendingResultDto().result(true)
+        every { smsSenderService.sendCodeInSms(allAny(), allAny()) } returns SendingResultDto().isSuccessful(true)
     }
 
     @Test
@@ -93,7 +93,7 @@ class CheckValidNumberTest : AbstractIntegrationTest() {
         assertEquals(OK, responseEntity.statusCode)
         val body = responseEntity.body
         assertNotNull(body)
-        val result = body?.result
+        val result = body?.isSuccessful
         assertNotNull(result)
         return result
     }

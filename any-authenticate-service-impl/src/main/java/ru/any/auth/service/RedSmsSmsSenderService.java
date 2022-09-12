@@ -35,7 +35,7 @@ public class RedSmsSmsSenderService implements SmsSenderService {
     @Override
     public SendingResultDto sendCodeInSms(PhoneNumberDto phoneNumberDto, String code) {
         if (code == null) {
-            return new SendingResultDto().result(false).message("Ошибка при генерации кода");
+            return new SendingResultDto().isSuccessful(false).errorMessage("Ошибка при генерации кода");
         }
         final String phone = phoneNumberDto.getPhone();
         final RedSmsRequest redSmsRequest = RedSmsRequest.builder()
@@ -51,8 +51,8 @@ public class RedSmsSmsSenderService implements SmsSenderService {
         } catch (Exception e) {
             log.error("Unknown response from service");
             final RedSmsException redSmsException = (RedSmsException) e.getCause();
-            return new SendingResultDto().result(false).message(redSmsException.getErrorMessage());
+            return new SendingResultDto().isSuccessful(false).errorMessage(redSmsException.getErrorMessage());
         }
-        return new SendingResultDto().result(true);
+        return new SendingResultDto().isSuccessful(true);
     }
 }
