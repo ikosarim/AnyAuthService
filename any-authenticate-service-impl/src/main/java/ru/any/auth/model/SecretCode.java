@@ -40,9 +40,6 @@ public class SecretCode {
     @Column(name = "attempts_number")
     private Long attemptsNumber;
 
-    @Column(name = "delay_until")
-    private LocalDateTime delayUntil;
-
     @Column(name = "expire_date_time")
     private LocalDateTime expireDateTime;
 }

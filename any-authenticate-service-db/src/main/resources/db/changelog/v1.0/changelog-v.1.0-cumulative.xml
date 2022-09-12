@@ -7,5 +7,6 @@
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
 
     <include file="v1.0_01_init_secret_code_table.xml" relativeToChangelogFile="true"/>
+    <include file="v1.0_02_drop_delay_until_column.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

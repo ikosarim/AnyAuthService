@@ -1,0 +1,12 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.4.xsd">
+
+    <changeSet id="drop_delay_until_column" author="Kosarim Igor">
+        <preConditions>
+            <tableExists tableName="secret_code"/>
+        </preConditions>
+        <dropColumn tableName="secret_code" columnName="delay_until"/>
+    </changeSet>
+</databaseChangeLog>
