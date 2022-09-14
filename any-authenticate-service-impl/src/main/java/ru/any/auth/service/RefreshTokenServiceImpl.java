@@ -42,14 +42,15 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         final String refreshToken = tokensDto.getRefreshToken();
         final String accessToken = tokensDto.getAccessToken();
         if (!tokenGenerator.validateRefreshToken(refreshToken)) {
-            return new JwtResponseDto().errorMessage("Invalid tokens");
+            return new JwtResponseDto().isSuccessful(false).errorMessage("Invalid tokens");
         }
         final Claims refreshClaims = tokenGenerator.getRefreshClaims(refreshToken);
         if (tokensAreInvalid(accessToken, refreshClaims)) {
-            return new JwtResponseDto().errorMessage("Invalid tokens");
+            return new JwtResponseDto().isSuccessful(false).errorMessage("Invalid tokens");
         }
         final String phone = refreshClaims.getSubject();
-        return new JwtResponseDto().accessToken(newAccessToken.apply(phone))
+        return new JwtResponseDto().isSuccessful(true)
+                .accessToken(newAccessToken.apply(phone))
                 .refreshToken(newRefreshToken.apply(phone));
     }
 

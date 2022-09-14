@@ -58,11 +58,11 @@ public class GetTokenServiceImpl implements GetTokenService {
     public JwtResponseDto checkSecretCode(SmsCodeDto smsCodeDto) {
         final SendingResultDto sendingResultDto = handleSmsCodeService.checkSecretCode(smsCodeDto);
         if (!sendingResultDto.getIsSuccessful()) {
-            return new JwtResponseDto().errorMessage(sendingResultDto.getErrorMessage());
+            return new JwtResponseDto().isSuccessful(false).errorMessage(sendingResultDto.getErrorMessage());
         }
         final String phone = smsCodeDto.getPhone();
         final String accessToken = tokenGenerator.generateAccessToken(phone);
         final String refreshToken = tokenGenerator.generateRefreshToken(phone);
-        return new JwtResponseDto().accessToken(accessToken).refreshToken(refreshToken);
+        return new JwtResponseDto().isSuccessful(true).accessToken(accessToken).refreshToken(refreshToken);
     }
 }
